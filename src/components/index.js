@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import Cam from './Cam/Cam';
 
 class App extends React.Component {
   render() {
     return (
-      <div><Button variant="contained" color="primary">Barev</Button></div>
+      <div>
+        <Cam />
+      </div>
     )
   }
 }
