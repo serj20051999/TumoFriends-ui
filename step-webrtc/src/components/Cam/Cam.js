@@ -38,11 +38,13 @@ export default class Cam extends React.Component {
     }).catch(err => console.error(err))
   }
   selectDevice(event) {
+    console.log(event.target);
     this.setState({
-      selectedVideoDeviceID: event.target.value,
-    }, () => { this.initializeVideo()});
+      selectedVideoDeviceID: event.target.value
+    });
+    this.initializeVideo(event.target.value);
   }
-  initializeVideo() {
+  initializeVideo(deviceId) {
     if (this.hasGetUserMedia()) {
       const constraints = {
         video: {
@@ -51,8 +53,12 @@ export default class Cam extends React.Component {
           height: { min: 720}
         }
       };
+      if (deviceId) {
+        constraints.video.deviceId = { exact: deviceId };
+      }
       this.userMedia = navigator.mediaDevices.getUserMedia(constraints)
         .then(stream => {
+          console.log('STREAM', stream);
           this.videoRef.current.srcObject = stream;
         });
     }
@@ -66,15 +72,18 @@ export default class Cam extends React.Component {
   }
   componentDidMount() {
     this.getDevices();
-    this.initializeVideo();
   }
   render() {
     return (
       <div>
-        <Select onChange={this.selectDevice} value={this.state.devices.length ? this.state.devices[0].id : ''}>
-          {this.state.devices.map(device => (
-            <MenuItem key={device.id + device.name} value={device.id}>{device.name}</MenuItem>
-          ))}
+        <Select
+          onChange={this.selectDevice}
+          value={
+            this.state.selectedVideoDeviceID ? this.state.selectedVideoDeviceID : this.state.devices.length ? this.state.devices[0].id  : ''
+          }>
+            {this.state.devices.map(device => (
+              <MenuItem key={device.id + device.name} value={device.id}>{device.name}</MenuItem>
+            ))}
         </Select>
         <Button onClick={this.takeScreenshot}>Take Screenshot!</Button>
         <video style={{filter: 'grayscale(1)'}} ref={this.videoRef} autoPlay></video>
