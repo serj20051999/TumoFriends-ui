@@ -10,7 +10,7 @@ export default () => (
     <p className="caption">
       <img className="tumo-logo-caption" src={tumoColorLogo}  alt="tumo"/>
       <p className={"display-4 text-black font-weight-bold"}>
-        Click <Link to="/login"><span className="text-white">here</span></Link> to start collaborating...
+        Click <Link to="/login"><span className="text-white">here</span></Link> to start networking.
       </p>
     </p>
   </div>

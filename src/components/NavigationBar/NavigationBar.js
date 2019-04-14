@@ -20,7 +20,7 @@ export default ({user}) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {
-            user == null ? (
+            user ? (
               <span>
                 <LinkContainer to="/profile"><img className="nav-icon" src={profileLogo} alt="user" /></LinkContainer>
                 <LinkContainer to="/network"><img className="nav-icon" src={networkLogo} alt="network" /></LinkContainer>
@@ -29,7 +29,7 @@ export default ({user}) => (
           }
         </Nav>
       </Navbar.Collapse>
-      { user === null ? <span className="user-name">Hello Mesrob!</span> : null }
+      { user ? <span className="user-name">Hello Mesrob!</span> : null }
     </Navbar>
   </div>
 );

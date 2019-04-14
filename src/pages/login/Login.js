@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default () => (
-  <div>Create a login form!</div>
+  <div className="caption">Create a login form!</div>
 )
