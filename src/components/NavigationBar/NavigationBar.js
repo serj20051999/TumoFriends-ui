@@ -29,7 +29,7 @@ export default ({user}) => (
           }
         </Nav>
       </Navbar.Collapse>
-      { user ? <span className="user-name">Hello Mesrob!</span> : null }
+      { user ? <span className="user-name">Hello!</span> : null }
     </Navbar>
   </div>
 );
