@@ -1,5 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-export default () => (
-  <div className="caption">Create a profile form!</div>
-)
+class Profile extends Component {
+  render() {
+    return (
+      <div className="text-center">Create a Profile form!</div>
+    )
+  }
+}
+
+export default Profile;

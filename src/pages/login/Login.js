@@ -1,5 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-export default () => (
-  <div className="caption">Create a login form!</div>
-)
+class Login extends Component {
+  render() {
+    return (
+      <div className="text-center">Create a login form!</div>
+    )
+  }
+}
+
+export default Login;
