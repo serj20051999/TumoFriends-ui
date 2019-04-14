@@ -1,0 +1,14 @@
+.tumo-logo {
+  width: 100px;
+}
+
+.nav-icon {
+  width: 35px;
+  margin-left: 2em;
+  cursor: pointer;
+}
+
+.user-name {
+  right: 0px;
+  color: white;
+}

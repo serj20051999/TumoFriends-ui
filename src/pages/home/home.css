@@ -6,3 +6,17 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.caption {
+  filter: none;
+  position: absolute;
+  left: 0;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+.tumo-logo-caption {
+  width: 800px;
+}
