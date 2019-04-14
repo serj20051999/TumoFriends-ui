@@ -1,35 +1,30 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Tumo from './pages/tumo';
+import Login from './pages/login/Login';
+import Home from './pages/home/Home';
 
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import './App.css';
+import tumoLogoArm from './tumo-logo-arm.png';
 
 const NavigationHeader = () => (
-  <div>
-    <Container>
-      <Navbar bg="light" expand="lg">
-        <LinkContainer to="/">
-          <Navbar.Brand>TUMO</Navbar.Brand>
-        </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <LinkContainer to="/tumo"><Nav.Link>Home</Nav.Link></LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    </Container>
+  <div className="global-nav">
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+      <LinkContainer to="/">
+        <Navbar.Brand><img alt="tumo" className="tumo-logo" src={tumoLogoArm} /></Navbar.Brand>
+      </LinkContainer>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   </div>
-);
-
-const HomePage = () => (
-  <h1>Tumo Enker</h1>
 );
 
 class App extends Component {
@@ -37,8 +32,8 @@ class App extends Component {
     return (
       <Router>
         <NavigationHeader />
-        <Route path="/" exact component={HomePage} />
-        <Route path="/tumo" component={Tumo} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
       </Router>
     );
   }
