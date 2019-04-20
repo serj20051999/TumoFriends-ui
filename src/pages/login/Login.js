@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import {Redirect} from 'react-router-dom';
 import {Container} from 'react-bootstrap';
 
 export default class Login extends Component {
@@ -27,6 +27,13 @@ export default class Login extends Component {
     this.props.loginUser(this.state.email, this.state.password)
   }
   render() {
+    if (this.props.user !== null) {
+      return (
+        <Redirect to={{
+          pathname: '/profile',
+        }} />
+      )
+    }
     return (
       <Container>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
