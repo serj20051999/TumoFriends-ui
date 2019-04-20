@@ -1,6 +1,15 @@
-export const simpleAction = () => dispatch => {
-  dispatch({
-   type: 'SIMPLE_ACTION',
-   payload: 'result_of_simple_action'
-  })
- }
+export const loginUser = (email, password) => {
+  return dispatch => {
+    setTimeout(() => { // stub api call
+      dispatch({
+        type: 'LOGIN_USER',
+        payload: {
+          email,
+          password,
+          firstName: '',
+          lastName: '',
+        }
+      });
+    }, 1000);
+  }
+}
