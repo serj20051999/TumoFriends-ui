@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-
+import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 
 class Signup extends Component {
@@ -15,13 +16,12 @@ class Signup extends Component {
       learningTargets: [],
       location: this.locations[0]
     };
-    
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.props.createUser(this.state);
   }
   handleChange(type, value) {
     if (type === "learningTargets") {
@@ -34,10 +34,16 @@ class Signup extends Component {
       this.setState({
         [type]: value
       });
-    }
-    
+    } 
   }
   render() {
+    if (this.props.user) {
+      return (
+        <Redirect to={{
+          pathname: '/profile',
+        }} />
+      )
+    }
     return (
       <Container>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
@@ -84,6 +90,11 @@ class Signup extends Component {
       </Container>      
     )
   }
+}
+
+Signup.propTypes = {
+  createUser: PropTypes.func,
+  user: PropTypes.object,
 }
 
 export default Signup;

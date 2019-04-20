@@ -13,3 +13,21 @@ export const loginUser = (email, password) => {
     }, 1000);
   }
 }
+
+export const createUser = (email, password, firstName, lastName, learningTargets, location) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch({
+        type: 'CREATE_USER',
+        payload: {
+          email,
+          password,
+          firstName,
+          lastName,
+          learningTargets,
+          location
+        }
+      })
+    }, 1000)
+  }
+}

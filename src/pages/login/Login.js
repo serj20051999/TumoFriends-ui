@@ -26,7 +26,6 @@ export default class Login extends Component {
     this.props.loginUser(this.state.email, this.state.password)
   }
   render() {
-    console.log(this.props.user);
     if (this.props.user) {
       return (
         <Redirect to={{

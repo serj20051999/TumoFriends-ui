@@ -4,6 +4,8 @@ const user = (state = {data: null, error: null}, action) => {
   switch (action.type) {
    case 'LOGIN_USER':
     return { data: action.payload, error: null }
+   case 'CREATE_USER':
+    return action.payload;
    default:
     return state
   }
