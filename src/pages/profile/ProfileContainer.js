@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import Profile from './Profile';
-import { createUser } from '../../redux/actions';
+import { updateUser } from '../../redux/actions';
 
 const mapStateToProps = state => {
   return {
@@ -11,8 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createUser: ({email, password, firstName, lastName, learningTargets, location}) => {
-      dispatch(createUser(email, password, firstName, lastName, learningTargets, location));
+    updateUser: ({email, password, firstName, lastName, learningTargets, location}) => {
+      dispatch(updateUser(email, password, firstName, lastName, learningTargets, location));
     }
   }
 }

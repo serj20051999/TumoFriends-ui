@@ -31,3 +31,21 @@ export const createUser = (email, password, firstName, lastName, learningTargets
     }, 1000)
   }
 }
+
+export const updateUser = (email, password, firstName, lastName, learningTargets, location) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch({
+        type: 'UPDATE_USER',
+        payload: {
+          email,
+          password,
+          firstName,
+          lastName,
+          learningTargets,
+          location
+        }
+      })
+    }, 1000)
+  }
+}

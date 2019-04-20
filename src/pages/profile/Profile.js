@@ -21,7 +21,7 @@ class Profile extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUser(this.state);
+    this.props.updateUser(this.state);
   }
   handleChange(type, value) {
     if (type === "learningTargets") {
@@ -45,8 +45,9 @@ class Profile extends Component {
       )
     }
     return (
-      <Container>
-        <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
+      <Container className="mt-5">
+        <h1 className="text-dark text-center">Profile</h1>
+        <Form className="mt-4" onSubmit={e => this.handleSubmit(e)}>
           <Form.Group controlId="formEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control value={this.state.email} onChange={(e) => { this.handleChange("email", e.target.value) }} type="email" placeholder="Enter email" />
@@ -93,7 +94,7 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  createUser: PropTypes.func,
+  updateUser: PropTypes.func,
   user: PropTypes.object,
 }
 

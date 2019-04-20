@@ -2,12 +2,14 @@ import { combineReducers } from 'redux';
 
 const user = (state = {data: null, error: null}, action) => {
   switch (action.type) {
-   case 'LOGIN_USER':
-    return { data: action.payload, error: null }
-   case 'CREATE_USER':
-    return { data: action.payload, error: null }
-   default:
-    return state
+    case 'LOGIN_USER':
+      return { data: action.payload, error: null }
+    case 'CREATE_USER':
+      return { data: action.payload, error: null }
+    case 'UPDATE_USER':
+      return { data: action.payload, error: null }
+    default:
+      return state
   }
  }
 
