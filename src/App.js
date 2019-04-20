@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import Signup from './pages/signup/Signup';
-import Profile from './pages/profile/Profile';
-import Network from './pages/network/Network';
+import Login from './pages/login/LoginContainer';
+import Signup from './pages/signup/SignupContainer';
+import Profile from './pages/profile/ProfileContainer';
+import Network from './pages/network/NetworkContainer';
 
 import './App.css';
 
@@ -22,7 +22,6 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/network" component={Network} />
         <Route path="/profile" component={Profile} />
-        <Route path="/network" component={Network} />
       </Router>
     );
   }
