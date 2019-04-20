@@ -17,7 +17,6 @@ export default class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(e) {
-    console.log(e.target.type, e.target.value);
     this.setState({
       [e.target.type]: e.target.value
     });
