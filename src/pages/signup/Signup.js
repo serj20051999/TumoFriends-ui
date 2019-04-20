@@ -45,7 +45,8 @@ class Signup extends Component {
       )
     }
     return (
-      <Container>
+      <Container className="mt-3">
+        <h1 className="display-4 text-secondary">Create an Account</h1>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
           <Form.Group controlId="formEmail">
             <Form.Label>Email address</Form.Label>
