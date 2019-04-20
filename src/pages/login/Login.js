@@ -34,8 +34,12 @@ export default class Login extends Component {
       )
     }
     return (
+<<<<<<< HEAD
       <Container className="mt-3">
         <h1 className="display-4 text-secondary">Login</h1>
+=======
+      <Container>
+>>>>>>> adding login ui wired to action and reducer
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
