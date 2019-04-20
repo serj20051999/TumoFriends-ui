@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
 
+import { Container, Form, Button } from 'react-bootstrap';
+
 class Signup extends Component {
   constructor(props) {
     super(props);
