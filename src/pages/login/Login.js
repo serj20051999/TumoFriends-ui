@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {Container} from 'react-bootstrap';
 
 export default class Login extends Component {
@@ -27,7 +27,8 @@ export default class Login extends Component {
     this.props.loginUser(this.state.email, this.state.password)
   }
   render() {
-    if (this.props.user !== null) {
+    console.log(this.props.user);
+    if (this.props.user) {
       return (
         <Redirect to={{
           pathname: '/profile',
@@ -54,6 +55,8 @@ export default class Login extends Component {
             Submit
           </Button>
         </Form>
+        <hr />
+        <p className="h5">Don't have an account? <Link className="text-light font-weight-bold bg-primary" to="/signup">Sign-up to connect!</Link></p>
       </Container>
     )
   }
