@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import Signup from './pages/signup/Signup';
 import Profile from './pages/profile/Profile';
 import Network from './pages/network/Network';
 
@@ -18,6 +19,8 @@ class App extends Component {
         <NavigationBar {...this.props}  />
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/network" component={Network} />
         <Route path="/profile" component={Profile} />
         <Route path="/network" component={Network} />
       </Router>
