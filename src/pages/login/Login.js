@@ -35,7 +35,8 @@ export default class Login extends Component {
       )
     }
     return (
-      <Container>
+      <Container className="mt-3">
+        <h1 className="display-4 text-secondary">Login</h1>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
