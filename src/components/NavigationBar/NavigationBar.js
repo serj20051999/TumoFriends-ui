@@ -3,14 +3,14 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {LinkContainer} from 'react-router-bootstrap';
-
+import { withRouter } from "react-router";
 import tumoLogoArm from './tumo-logo-arm.png';
-import profileLogo from './profile.svg';
-import networkLogo from './network.svg';
+import ProfileIcon from './ProfileIcon';
+import NetworkIcon from './NetworkIcon';
 
 import './navigationbar.css';
 
-export default ({user}) => (
+export default withRouter(({user, location}) => (
   <div className="global-nav">
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <LinkContainer to="/">
@@ -20,10 +20,18 @@ export default ({user}) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {
-            user ? (
+            user == null ? (
               <span>
-                <LinkContainer to="/profile"><img className="nav-icon" src={profileLogo} alt="user" /></LinkContainer>
-                <LinkContainer to="/network"><img className="nav-icon" src={networkLogo} alt="network" /></LinkContainer>
+                <span className="ml-4 nav-icon">
+                  <LinkContainer to="/profile">
+                    <span><ProfileIcon fillColor={location.pathname === '/profile' ? "#ffa400": "#ffffff"} /></span>
+                  </LinkContainer>
+                </span>
+                <span className="ml-4 nav-icon">
+                  <LinkContainer to="/network">
+                    <span><NetworkIcon fillColor={location.pathname === '/network' ? "#ffa400": "#ffffff"} /></span>
+                  </LinkContainer>
+                </span>
               </span>
             ) : null
           }
@@ -32,4 +40,4 @@ export default ({user}) => (
       { user ? <span className="user-name">Hello!</span> : null }
     </Navbar>
   </div>
-);
+));
