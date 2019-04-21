@@ -20,7 +20,7 @@ export default withRouter(({user, location}) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {
-            user == null ? (
+            user ? (
               <span>
                 <span className="ml-4 nav-icon">
                   <LinkContainer to="/profile">
