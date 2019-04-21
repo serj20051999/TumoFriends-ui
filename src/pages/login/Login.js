@@ -54,7 +54,7 @@ export default class Login extends Component {
           </Button>
         </Form>
         <hr />
-        <p className="h5">Don't have an account? <Link className="text-light font-weight-bold bg-primary" to="/signup">Sign-up to connect!</Link></p>
+        <p className="h5">Don't have an account? <Link className="text-decoration-none text-light font-weight-bold bg-primary" to="/signup">Sign-up to connect!</Link></p>
       </Container>
     )
   }
