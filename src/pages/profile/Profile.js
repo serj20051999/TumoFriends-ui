@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
 
 class Profile extends Component {
   constructor(props) {
@@ -48,6 +48,9 @@ class Profile extends Component {
       <Container className="mt-5">
         <h1 className="text-dark text-center">Profile</h1>
         <Form className="mt-4" onSubmit={e => this.handleSubmit(e)}>
+          {
+            this.props.userError ?  <Alert variant="danger">{this.props.userError}</Alert>  : null
+          }
           <Form.Group controlId="formEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control value={this.state.email} onChange={(e) => { this.handleChange("email", e.target.value) }} type="email" placeholder="Enter email" />
@@ -96,6 +99,7 @@ class Profile extends Component {
 Profile.propTypes = {
   updateUser: PropTypes.func,
   user: PropTypes.object,
+  userError: PropTypes.string,
 }
 
 export default Profile;

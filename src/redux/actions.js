@@ -44,20 +44,29 @@ export const createUser = (email, password, firstName, lastName, learningTargets
 }
 
 export const updateUser = (email, password, firstName, lastName, learningTargets, location) => {
-  return dispatch => {
-    setTimeout(() => {
+  return (dispatch, getState) => {
+    const user = {
+      email,
+      password,
+      firstName,
+      lastName,
+      learningTargets,
+      location
+    };
+    const state = getState();
+    axios.put(`${apiHost}/students/${email}`, user, { auth: {username: email, password: state.user.data.password}})
+    .then(response => {
       dispatch({
         type: 'UPDATE_USER',
-        payload: {
-          email,
-          password,
-          firstName,
-          lastName,
-          learningTargets,
-          location
-        }
+        payload: response.data
       })
-    }, 1000)
+    })
+    .catch(err => {
+      dispatch({
+        type: 'UPDATE_USER_ERROR',
+        payload: getErrorMessage(err)
+      })
+    })
   }
 }
 
