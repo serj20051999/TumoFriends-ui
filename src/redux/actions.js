@@ -64,7 +64,7 @@ export const updateUser = (email, password, firstName, lastName, learningTargets
 function getErrorMessage(err) {
   let message = null;
   if (err.response) {
-    message = err.response.data;
+    message = err.response.data.error;
   } else if (err.request) {
     message = "No response from backend service.";
   } else {
