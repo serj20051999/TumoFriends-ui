@@ -1,3 +1,6 @@
+const apiHost = process.env.REACT_APP_API_HOST  || 'http://localhost:3001';
+const axios = require('axios');
+
 export const loginUser = (email, password) => {
   return dispatch => {
     setTimeout(() => { // stub api call
@@ -16,19 +19,27 @@ export const loginUser = (email, password) => {
 
 export const createUser = (email, password, firstName, lastName, learningTargets, location) => {
   return dispatch => {
-    setTimeout(() => {
+    const user = {
+      email,
+      password,
+      firstName,
+      lastName,
+      learningTargets,
+      location
+    };
+    axios.post  (`${apiHost}/students`, user)
+    .then(response => {
       dispatch({
         type: 'CREATE_USER',
-        payload: {
-          email,
-          password,
-          firstName,
-          lastName,
-          learningTargets,
-          location
-        }
+        payload: response.data
       })
-    }, 1000)
+    })
+    .catch(err => {
+      dispatch({
+        type: 'CREATE_USER_ERROR',
+        payload: err,
+      })
+    })
   }
 }
 
