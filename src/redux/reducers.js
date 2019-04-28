@@ -5,7 +5,7 @@ const user = (state = {data: null, error: null}, action) => {
    case 'LOGIN_USER':
     return { data: action.payload, error: null }
    case 'CREATE_USER':
-    return action.payload;
+    return { data: action.payload, error: null }
    default:
     return state
   }
