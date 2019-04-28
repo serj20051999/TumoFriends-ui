@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const user = (state = null, action) => {
+const user = (state = {data: null, error: null}, action) => {
   switch (action.type) {
    case 'SIMPLE_ACTION':
     return {

@@ -20,7 +20,7 @@ export default withRouter(({user, location}) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {
-            user ? (
+            user.data ? (
               <span>
                 <span className="ml-4 nav-icon">
                   <LinkContainer to="/profile">
@@ -37,7 +37,7 @@ export default withRouter(({user, location}) => (
           }
         </Nav>
       </Navbar.Collapse>
-      { user ? <span className="user-name">Hello!</span> : null }
+      { user.data ? <span className="user-name">Hello!</span> : null }
     </Navbar>
   </div>
 ));
