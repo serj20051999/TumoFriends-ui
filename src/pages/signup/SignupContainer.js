@@ -5,7 +5,8 @@ import { createUser } from '../../redux/actions';
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    userError: state.user.error
   }
 }
 

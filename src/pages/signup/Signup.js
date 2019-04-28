@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
 
 class Signup extends Component {
   constructor(props) {
@@ -48,6 +48,10 @@ class Signup extends Component {
       <Container className="mt-3">
         <h1 className="display-4 text-secondary">Create an Account</h1>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
+          {
+            this.props.userError ? 
+              <Alert variant="danger">{this.props.userError}</Alert>  : null
+          }
           <Form.Group controlId="formEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control onChange={(e) => { this.handleChange("email", e.target.value) }} type="email" placeholder="Enter email" />
@@ -96,6 +100,7 @@ class Signup extends Component {
 Signup.propTypes = {
   createUser: PropTypes.func,
   user: PropTypes.object,
+  userError: PropTypes.string,
 }
 
 export default Signup;

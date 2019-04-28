@@ -5,14 +5,16 @@ const user = (state = {data: null, error: null}, action) => {
     case 'LOGIN_USER':
       return { data: action.payload, error: null }
     case 'CREATE_USER':
-      return { data: action.payload, error: null }
+      return { data: action.payload, error: null};
+    case 'CREATE_USER_ERROR':
+      return { data: null, error: action.payload};
     case 'UPDATE_USER':
       return { data: action.payload, error: null }
     default:
       return state
   }
- }
+}
 
 export default combineReducers({
- user
+ user,
 });
