@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {Redirect, Link} from 'react-router-dom';
-import {Container} from 'react-bootstrap';
+import {Container, Alert} from 'react-bootstrap';
 
 export default class Login extends Component {
   constructor(props) {
@@ -37,6 +37,10 @@ export default class Login extends Component {
       <Container className="mt-3">
         <h1 className="display-4 text-secondary">Login</h1>
         <Form className="mt-5" onSubmit={e => this.handleSubmit(e)}>
+          {
+            this.props.userError ? 
+              <Alert variant="danger">{this.props.userError}</Alert>  : null
+          }
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control onChange={this.handleChange} type="email" placeholder="Enter email" />
@@ -63,4 +67,5 @@ export default class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func,
   user: PropTypes.object,
+  userError: PropTypes.string,
 }

@@ -3,19 +3,24 @@ const axios = require('axios');
 
 export const loginUser = (email, password) => {
   return dispatch => {
-    setTimeout(() => { // stub api call
+    const user = {
+      email,
+      password,
+    };
+    axios.put(`${apiHost}/students/${email}`, user, { auth: {username: email, password: password}})
+    .then(response => {
       dispatch({
         type: 'LOGIN_USER',
-        payload: {
-          email,
-          password,
-          firstName: '',
-          lastName: '',
-        }
-      });
-    }, 1000);
-  }
-}
+        payload: response.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: 'LOGIN_USER_ERROR',
+        payload: getErrorMessage(err)
+      })
+    })
+  }}
 
 export const createUser = (email, password, firstName, lastName, learningTargets, location) => {
   return dispatch => {
@@ -79,5 +84,6 @@ function getErrorMessage(err) {
   } else {
     message = err.message;
   }
+  console.log(err);
   return message;
 }
