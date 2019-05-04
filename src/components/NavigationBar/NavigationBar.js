@@ -37,7 +37,7 @@ export default withRouter(({user, location}) => (
           }
         </Nav>
       </Navbar.Collapse>
-      { user.data ? <span className="user-name">Hello!</span> : null }
+      { user.data ? <span className="user-name">Hello! {user.data.firstName}</span> : null }
     </Navbar>
   </div>
 ));
