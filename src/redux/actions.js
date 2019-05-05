@@ -71,6 +71,14 @@ export const updateUser = (email, password, firstName, lastName, learningTargets
   }
 }
 
+export const logoutUser = () => {
+  return dispatch => {
+    dispatch({
+      type: 'LOGOUT_USER',
+    })
+  }
+}
+
 function getErrorMessage(err) {
   let message = null;
   if (err.response) {

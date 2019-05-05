@@ -2,6 +2,7 @@ import React from 'react';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 import {LinkContainer} from 'react-router-bootstrap';
 import tumoLogoArm from './tumo-logo-arm.png';
 import ProfileIcon from './ProfileIcon';
@@ -9,7 +10,7 @@ import NetworkIcon from './NetworkIcon';
 
 import './navigationbar.css';
 
-export default ({user, location}) => (
+export default ({user, location, logoutUser}) => (
   <div className="global-nav">
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <LinkContainer to="/">
@@ -36,7 +37,8 @@ export default ({user, location}) => (
           }
         </Nav>
       </Navbar.Collapse>
-      { user.data ? <span className="user-name">Hello! {user.data.firstName}</span> : null }
+      { user.data ? <span className="user-name">Hello {user.data.firstName}!</span> : null }
+      { user.data ? <Button onClick={() => {logoutUser();}} className="ml-2" variant="outline-warning">Logout</Button> : null }
     </Navbar>
   </div>
 );
