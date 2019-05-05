@@ -7,13 +7,15 @@ export const loginUser = (email, password) => {
   return dispatch => {
     axios.get(`${apiHost}/students/${email}`, { auth: {username: email, password: password}})
     .then(response => {
-      Socket.list.emit('login', {
-        email, 
-        password
-      });
-      dispatch({
-        type: 'LOGIN_USER',
-        payload: response.data
+      Socket.connect('list', (list) => {
+        list.emit('login', {
+          email, 
+          password
+        });  
+        dispatch({
+          type: 'LOGIN_USER',
+          payload: response.data
+        })
       })
     })
     .catch(err => {
