@@ -10,7 +10,7 @@ import Network from './pages/network/NetworkContainer';
 
 import './App.css';
 
-import NavigationBar from './components/NavigationBar/NavigationBar';
+import NavigationBar from './components/NavigationBar/NavigationBarContainer';
 
 class App extends Component {
   render() {

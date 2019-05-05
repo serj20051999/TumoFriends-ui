@@ -3,14 +3,13 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {LinkContainer} from 'react-router-bootstrap';
-import { withRouter } from "react-router";
 import tumoLogoArm from './tumo-logo-arm.png';
 import ProfileIcon from './ProfileIcon';
 import NetworkIcon from './NetworkIcon';
 
 import './navigationbar.css';
 
-export default withRouter(({user, location}) => (
+export default ({user, location}) => (
   <div className="global-nav">
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <LinkContainer to="/">
@@ -40,4 +39,4 @@ export default withRouter(({user, location}) => (
       { user.data ? <span className="user-name">Hello! {user.data.firstName}</span> : null }
     </Navbar>
   </div>
-));
+);
