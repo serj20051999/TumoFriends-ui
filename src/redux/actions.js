@@ -3,11 +3,7 @@ const axios = require('axios');
 
 export const loginUser = (email, password) => {
   return dispatch => {
-    const user = {
-      email,
-      password,
-    };
-    axios.put(`${apiHost}/students/${email}`, user, { auth: {username: email, password: password}})
+    axios.get(`${apiHost}/students/${email}`, { auth: {username: email, password: password}})
     .then(response => {
       dispatch({
         type: 'LOGIN_USER',
