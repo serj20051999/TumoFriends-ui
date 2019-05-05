@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 
@@ -35,4 +36,4 @@ const mapDispatchToProps = dispatch => ({
   // simpleAction: () => dispatch(simpleAction())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default hot(connect(mapStateToProps, mapDispatchToProps)(App));
