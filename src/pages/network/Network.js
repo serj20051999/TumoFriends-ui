@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import {Container, Row, Col} from 'react-bootstrap';
-
-import Search from './Search';
 import './network.css';
 
 class NetworkPage extends Component {
@@ -10,9 +8,6 @@ class NetworkPage extends Component {
     return (
       <Container fluid={true} className="p-0">
         <Row noGutters={true}>
-          <Col xs={2}>
-            <div><Search /></div>
-          </Col>  
           <Col>
             <div>Collaboration Page Placeholder</div>
           </Col>

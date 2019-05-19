@@ -7,6 +7,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/LoginContainer';
 import Signup from './pages/signup/SignupContainer';
 import Profile from './pages/profile/ProfileContainer';
+import Search from './pages/search/SearchContainer';
 import Network from './pages/network/NetworkContainer';
 
 import './App.css';
@@ -21,6 +22,7 @@ class App extends Component {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/search" component={Search} />
         <Route path="/network" component={Network} />
         <Route path="/profile" component={Profile} />
       </Router>

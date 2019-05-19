@@ -7,6 +7,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import tumoLogoArm from './tumo-logo-arm.png';
 import ProfileIcon from './ProfileIcon';
 import NetworkIcon from './NetworkIcon';
+import SearchIcon from './SearchIcon';
 
 import './navigationbar.css';
 
@@ -25,6 +26,11 @@ export default ({user, location, logoutUser}) => (
                 <span className="ml-4 nav-icon">
                   <LinkContainer to="/profile">
                     <span><ProfileIcon fillColor={location.pathname === '/profile' ? "#ffa400": "#ffffff"} /></span>
+                  </LinkContainer>
+                </span>
+                <span className="ml-4 nav-icon">
+                  <LinkContainer to="/search">
+                    <span><SearchIcon fillColor={location.pathname === '/search' ? "#ffa400": "#ffffff"} /></span>
                   </LinkContainer>
                 </span>
                 <span className="ml-4 nav-icon">
