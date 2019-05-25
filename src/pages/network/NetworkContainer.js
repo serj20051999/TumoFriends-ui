@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 
 import Network from './Network';
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  withUser: state.network.withUser,
+  currentUser: state.user.data,
+});
 
 const mapDispatchToProps = dispatch => ({})
 

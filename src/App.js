@@ -38,4 +38,6 @@ const mapDispatchToProps = dispatch => ({
   // simpleAction: () => dispatch(simpleAction())
 })
 
-export default process.env.NODE_ENV === "development" ? hot(connect(mapStateToProps, mapDispatchToProps)(App)) : connect(mapStateToProps, mapDispatchToProps)(App);
+export default process.env.NODE_ENV === "development" ? 
+  hot(connect(mapStateToProps, mapDispatchToProps)(App)) : 
+  connect(mapStateToProps, mapDispatchToProps)(App);

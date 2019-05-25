@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Socket from '../../socket';
-import { ListGroup, Tab, Form, Button, Container, Col, Row} from 'react-bootstrap';
+import {Badge, ListGroup, Tab, Form, Button, Container, Col, Row} from 'react-bootstrap';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       list: [],
-      selectedUsers: [],
-      showProfileFor: null,
+      textSearch: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,26 +27,31 @@ class Search extends React.Component {
   }
   onStudentLoggedIn() {
     Socket.list.on('logged in', user => {
-      console.log('user logged in', user);
-      this.query();
+      this.query(this.state.textSearch);
     });
   }
   onStudentLoggedOut() {
     Socket.list.on('logged out', user => {
-      console.log('user logged out', user);
-      this.query();
+      this.query(this.state.textSearch);
     });
   }
-  onStartSession(user) {
-    console.log('user', user);
-    // this.props.onStartSession(this.state.selectedUsers);
+  onstartChat(withUser) {
+    this.props.startChat(withUser);
+    Socket.list.emit('start-chat', withUser, this.props.currentUser);
+    console.log('start-chat with user', withUser);
+    this.props.history.push('/network');
   }
   query(textSearch) {
-    console.log('query', textSearch);
+    this.setState({
+      textSearch,
+    });
     const currentUser = this.props.currentUser;
     Socket.list.emit('query', { search: textSearch}, (results) => {
+      if (currentUser) {
+        results = results.filter(r => currentUser.email !== r.email)
+      }
       this.setState({
-        list: results.filter(r => currentUser.email !== r.email),
+        list: results
       });
     });
   }
@@ -73,12 +77,9 @@ class Search extends React.Component {
                   <ListGroup.Item
                     eventKey={`#user${index}`}
                     as="button"
-                    variant={user.loggedIn ? "success" : null}
-                    // active={user.loggedIn ? true : false}
-                    // action={user.loggedIn ? true : false}
-                    // disabled={user.loggedIn ? false : true}
-                  >
-                    <span>{user.firstName} {user.lastName}</span>
+                    >
+                    <span>{user.firstName} {user.lastName}</span> 
+                    {user.loggedIn ? <Badge className="ml-2" variant="success">Logged In</Badge> : null}
                   </ListGroup.Item>
                 ))}
               </ListGroup>
@@ -91,7 +92,7 @@ class Search extends React.Component {
                     <div>Email: {user.email}</div>
                     <div>Learning Targets: {user.learningTargets.join(', ')}</div>
                     <div>Location: {user.location}</div>
-                    <Button className="mt-3" onClick={(e) => { e.preventDefault(); this.onStartSession(user)}}>Start Chat</Button>
+                    <Button className="mt-3" onClick={(e) => { e.preventDefault(); this.onstartChat(user)}}>Start Chat</Button>
                   </Tab.Pane>
                 ))}
               </Tab.Content>
@@ -105,7 +106,7 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  onStartSession: PropTypes.func,
+  startChat: PropTypes.func,
   currentUser: PropTypes.object,
 };
 export default Search;

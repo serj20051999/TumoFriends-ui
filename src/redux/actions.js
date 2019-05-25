@@ -11,11 +11,17 @@ export const loginUser = (email, password) => {
         list.emit('login', {
           email, 
           password
-        });  
+        });
         dispatch({
           type: 'LOGIN_USER',
           payload: response.data
-        })
+        });
+
+        // When someone initiates chat send action
+        list.on('start-chat', fromUser => {
+          console.log('start-chat', fromUser);
+          startChat(fromUser)(dispatch);
+        });
       })
     })
     .catch(err => {
@@ -85,6 +91,23 @@ export const logoutUser = () => {
     dispatch({
       type: 'LOGOUT_USER',
     })
+  }
+}
+
+export const startChat = (withUser) => {
+  return dispatch => {
+    dispatch({
+      type: 'START_CHAT',
+      withUser,
+    });
+  };
+}
+
+export const stopChat = () => {
+  return dispatch => {
+    dispatch({
+      type: 'STOP_CHAT'
+    });
   }
 }
 

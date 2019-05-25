@@ -21,6 +21,19 @@ const user = (state = {data: null, error: null}, action) => {
   }
 }
 
+const network = (state = {withUser: null}, action) => {
+  switch(action.type) {
+    case 'START_CHAT':
+      return { withUser: action.withUser }
+    case 'STOP_CHAT':
+    case 'LOGOUT_USER':
+      return { withUser: null }
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
  user,
+ network,
 });

@@ -4,7 +4,9 @@ import { withRouter } from "react-router";
 import NavigationBar from './NavigationBar';
 import { logoutUser } from '../../redux/actions';
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  withUser: state.network.withUser,
+})
 
 const mapDispatchToProps = dispatch => {
   return {
