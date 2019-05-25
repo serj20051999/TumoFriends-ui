@@ -85,9 +85,9 @@ export const updateUser = (email, password, firstName, lastName, learningTargets
   }
 }
 
-export const logoutUser = () => {
+export const logoutUser = (user) => {
   return dispatch => {
-    Socket.list.emit('logout');
+    Socket.list.emit('logout', user);
     dispatch({
       type: 'LOGOUT_USER',
     })

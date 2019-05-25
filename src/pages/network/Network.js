@@ -4,22 +4,40 @@ import { Container, Row, Col } from 'react-bootstrap';
 import './network.css';
 import Socket from '../../socket';
 
+// Chat
 import { Widget, addResponseMessage } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
+
+// WYSIWIG
+import ReactQuill from 'react-quill'; // ES6
+import 'react-quill/dist/quill.snow.css'; // ES6
+import debounce from 'debounce';
 
 class NetworkPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatMessages:[]
+      chatMessages:[],
+      editorText: null,
     };
+
     this.handleNewChatMessage = this.handleNewChatMessage.bind(this);
+    this.handleEditorChange = this.handleEditorChange.bind(this);
   }
   handleNewChatMessage(message) {
     this.emitChatMessage(message);
   }
+  handleEditorChange(source, editor) {
+    console.log('source', source);
+    if (source === 'user') {
+      this.emitEditorMessage(editor.getContents());
+    }
+  }
   emitChatMessage(message) {
     Socket.list.emit('chat-message', this.props.withUser, this.props.currentUser, message);
+  }
+  emitEditorMessage(message) {
+    Socket.list.emit('editor-message', this.props.withUser, this.props.currentUser, message);
   }
   componentDidMount() {
     addResponseMessage(`Message ${this.props.withUser ? this.props.withUser.firstName: ''}!`)
@@ -29,12 +47,17 @@ class NetworkPage extends Component {
         this.setState((prevState) => ({
           chatMessages: [...prevState.chatMessages, message]
         }));
-        console.log('message received', fromUser.email, message)
+      });
+      list.on('editor-message', (fromUser, message) => {
+        this.setState({
+          editorText: message
+        })
       });
     });
   }
   componentWillUnmount() {
     Socket.list.removeListener('chat-message');
+    Socket.list.removeListener('editor-message');
   }
   render() {
     return (
@@ -46,7 +69,11 @@ class NetworkPage extends Component {
         />
         <Row noGutters={true}>
           <Col>
-            <div>Collaboration Page Placeholder</div>
+            <ReactQuill
+              id="chat"
+              value={this.state.editorText}
+              onChange={(content, delta, source, editor) => { debounce(this.handleEditorChange(source, editor)) } }
+             />
           </Col>
           <Col>
             <div>Video Collaboration</div>

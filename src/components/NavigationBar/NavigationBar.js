@@ -44,7 +44,7 @@ export default ({user, location, logoutUser, withUser}) => (
         </Nav>
       </Navbar.Collapse>
       { user.data ? <span className="user-name">Hello {user.data.firstName}!</span> : null }
-      { user.data ? <LinkContainer to="/"><Button onClick={() => {logoutUser();}} className="ml-2" variant="outline-warning">Logout</Button></LinkContainer> : null }
+      { user.data ? <LinkContainer to="/"><Button onClick={() => {logoutUser(user.data);}} className="ml-2" variant="outline-warning">Logout</Button></LinkContainer> : null }
       { withUser ? <LinkContainer to="/network"><Button className="ml-2" variant="outline-success">CHAT!</Button></LinkContainer> : null}
     </Navbar>
   </div>
