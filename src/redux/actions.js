@@ -21,6 +21,7 @@ export const loginUser = (email, password) => {
         list.on('start-chat', fromUser => {
           console.log('start-chat', fromUser);
           startChat(fromUser)(dispatch);
+          dispatch(imReceiver());
         });
       })
     })
@@ -93,6 +94,10 @@ export const logoutUser = (user) => {
     })
   }
 }
+
+export const imReceiver = () => ({
+  type: 'IM_THE_RECEIVE',
+})
 
 export const startChat = (withUser) => {
   return dispatch => {

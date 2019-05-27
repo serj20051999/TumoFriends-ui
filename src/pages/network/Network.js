@@ -13,6 +13,9 @@ import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css'; // ES6
 import debounce from 'debounce';
 
+// VideoChat
+import VideoChat from './VideoChat';
+
 class NetworkPage extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +79,13 @@ class NetworkPage extends Component {
              />
           </Col>
           <Col>
-            <div>Video Collaboration</div>
+            <div>
+              <VideoChat
+                currentUser={this.props.currentUser}
+                caller={this.props.receiver ? this.props.withUser : this.props.currentUser}
+                receiver={this.props.receiver ? this.props.currentUser : this.props.withUser}
+              />
+            </div>
           </Col>
         </Row>
 

@@ -21,13 +21,15 @@ const user = (state = {data: null, error: null}, action) => {
   }
 }
 
-const network = (state = {withUser: null}, action) => {
+const network = (state = {withUser: null, receiver: false}, action) => {
   switch(action.type) {
     case 'START_CHAT':
-      return { withUser: action.withUser }
+      return { ...state, withUser: action.withUser }
+    case 'IM_THE_RECEIVE':
+      return { ...state, receiver: true }
     case 'STOP_CHAT':
     case 'LOGOUT_USER':
-      return { withUser: null }
+      return { withUser: null, receiver: false }
     default:
       return state;
   }
