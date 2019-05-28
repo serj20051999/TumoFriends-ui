@@ -1,17 +1,20 @@
 import React from 'react';
 import LioWebRTC from 'liowebrtc';
 
-import { Badge } from 'react-bootstrap';
+import { Badge, Button } from 'react-bootstrap';
+import endCallIcon from './end-call-icon.png';
+import callIcon from './phone-call.png';
 
 class VideoChat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nick: props.currentUser.firstName,
+      nick: props.currentUser ? props.currentUser.firstName : null,
       roomID: `tumochat${props.caller.email}${props.receiver.email}`,
-      muted: false,
+      muted: true,
       camPaused: false,
-      peers: []
+      peers: [],
+      inCall: false,
     };
     this.videoRef = React.createRef();
     this.remoteVideos = {};
@@ -23,26 +26,32 @@ class VideoChat extends React.Component {
       // The local video ref set within your render function
       localVideoEl: this.localVid,
       // Immediately request camera access
-      autoRequestMedia: true,
+      autoRequestMedia: false,
       // Optional: nickname
       nick: this.props.currentUser.firstName,
-      debug: true
+      debug: true,
+      localVideo: {
+        mirror: false
+      }
     });
     this.webrtc.on('peerStreamAdded', this.addVideo);
     this.webrtc.on('removedPeer', this.removeVideo);
-    this.webrtc.on('ready', this.readyToJoin);
+    // this.webrtc.on('ready', this.readyToJoin);
     this.webrtc.on('iceFailed', this.handleConnectionError);
     this.webrtc.on('connectivityError', this.handleConnectionError);
-  }
-  disconnect = () => {
-    this.webrtc.quit();
   }
   componentWillUnmount() {
     this.disconnect();
   }
+  disconnect = () => {
+    this.webrtc.quit();
+  }
   addVideo = (stream, peer) => {
     this.setState({ peers: [...this.state.peers, peer] }, () => {
-      this.webrtc.attachStream(stream, this.remoteVideos[peer.id]);
+      this.webrtc.attachStream(stream, this.remoteVideos[peer.id], { mirror: false });
+      this.setState({
+        inCall: true,
+      })
     });
   }
   removeVideo = (peer) => {
@@ -55,6 +64,16 @@ class VideoChat extends React.Component {
     console.log('had local relay candidate', pc.hadLocalRelayCandidate);
     console.log('had remote relay candidate', pc.hadRemoteRelayCandidate);
   }
+  startCall() {
+    this.webrtc.startLocalVideo();
+    this.readyToJoin();
+  }
+  stopCall() {
+    this.webrtc.leaveRoom();
+    this.setState({
+      inCall: false,
+    })
+  }
   readyToJoin = () => {
     // Starts the process of joining a room.
     this.webrtc.joinRoom(this.state.roomID, (err, desc) => {
@@ -63,7 +82,6 @@ class VideoChat extends React.Component {
   generateRemotes = () => this.state.peers.map((p) => (
     <div key={p.id}>
       <div
-        // className="float-right" 
         id={/* The video container needs a special id */ `${this.webrtc.getContainerId(p)}`}>
         <video
           controls
@@ -71,9 +89,10 @@ class VideoChat extends React.Component {
           // Important: The video element needs both an id and ref
           id={this.webrtc.getDomId(p)}
           ref={(v) => this.remoteVideos[p.id] = v}
+          style={{width: "100%", transform: "none"}}
           />
       </div>
-      <div>
+      <div style={{position: "absolute", top: "0", left: "0", padding: "10px"}}>
         <Badge variant="info">{p.nick}</Badge>
       </div>
     </div>
@@ -82,10 +101,16 @@ class VideoChat extends React.Component {
     return (
       <div>
         {this.generateRemotes()}
-        <div className="w-2 float-right">
-          <video controls width="25%" height="auto" autoPlay ref={(vid) => { this.localVid = vid; }}></video>
+        <div className="d-flex justify-content-center align-items-center">
+          <video controls width={this.state.inCall ? "50%" : "100%"} height="auto" autoPlay ref={(vid) => { this.localVid = vid; }}></video>
+          <div style={{position: "absolute", padding: "5px", alignSelf: "baseline"}}>
+            <Badge variant="info">{this.props.currentUser.firstName}</Badge>
+          </div>
+          <div className="position-absolute">
+            <Button disabled={this.state.inCall ? true : null} variant="link" onClick={() => {this.startCall()}}><img width="45px" src={callIcon} alt="call" /></Button>
+            <Button disabled={this.state.inCall ? null : true} variant="link" onClick={() => {this.stopCall()}}><img width="45px" src={endCallIcon} alt="endcall" /></Button>
+          </div>
         </div>
-        <div><Badge variant="info">{this.props.currentUser.firstName}</Badge></div>
       </div>
     )   
   }
