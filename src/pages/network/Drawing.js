@@ -9,7 +9,6 @@ class Drawing extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.endPaintEvent = this.endPaintEvent.bind(this);
-    this.container = React.createRef();
   }
 
   isPainting = false;
@@ -75,9 +74,9 @@ class Drawing extends React.Component {
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = 5;
 
-    // this.canvas.width = this.container.current.offsetWidth;
+    this.canvas.width = this.container.parentElement.parentElement.offsetWidth; // grab the tab container width - bug
     window.addEventListener('resize', () => {
-      this.canvas.width = this.container.current.offsetWidth;
+      this.canvas.width = this.container.offsetWidth;
     });
     Socket.connect('list', (list) => {
       list.on('drawing-message', (fromUser, line) => {
@@ -92,7 +91,7 @@ class Drawing extends React.Component {
   }
   render() {
     return (
-      <div id="container" width="100%" ref={this.container} style={{height: "500px", border: "1px solid black"}}>
+      <div ref={el => this.container = el} style={{height: "500px", border: "1px solid black"}}>
         <Button variant="info" onClick={() => {this.clear(); this.sendPaintData()}}>Clear</Button>
         <canvas 
           ref={(ref) => (this.canvas = ref)}
@@ -100,7 +99,7 @@ class Drawing extends React.Component {
           onMouseLeave={this.endPaintEvent}
           onMouseUp={this.endPaintEvent}
           onMouseMove={this.onMouseMove}
-          id="canvas" width="auto" height="500px"></canvas>
+          id="canvas" width="100px" height="500px"></canvas>
       </div>
     )
   }
