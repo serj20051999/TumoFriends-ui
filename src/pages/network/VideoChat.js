@@ -10,7 +10,7 @@ class VideoChat extends React.Component {
     super(props);
     this.state = {
       nick: props.currentUser ? props.currentUser.firstName : null,
-      roomID: `tumochat${props.caller.email}${props.receiver.email}`,
+      roomID: `tumochat${[props.caller.email, props.receiver.email].sort().join()}`,
       muted: true,
       camPaused: false,
       peers: [],
