@@ -7,6 +7,8 @@ export const loginUser = (email, password) => {
   return dispatch => {
     axios.get(`${apiHost}/students/${email}`, { auth: {username: email, password: password}})
     .then(response => {
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       Socket.connect('list', (list) => {
         list.emit('login', {
           email, 
@@ -16,7 +18,6 @@ export const loginUser = (email, password) => {
           type: 'LOGIN_USER',
           payload: response.data
         });
-
         // When someone initiates chat send action
         list.on('start-chat', fromUser => {
           console.log('start-chat', fromUser);
@@ -89,6 +90,8 @@ export const updateUser = (email, password, firstName, lastName, learningTargets
 export const logoutUser = (user) => {
   return dispatch => {
     Socket.list.emit('logout', user);
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('password');
     dispatch({
       type: 'LOGOUT_USER',
     })
