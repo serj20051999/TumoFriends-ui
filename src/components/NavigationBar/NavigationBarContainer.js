@@ -2,16 +2,13 @@ import { connect } from 'react-redux'
 import { withRouter } from "react-router";
 
 import NavigationBar from './NavigationBar';
-import { logoutUser } from '../../redux/actions';
 
 const mapStateToProps = state => ({
-  withUser: state.network.withUser,
+  // TODO: Provide user data from state
 })
 
 const mapDispatchToProps = dispatch => {
-  return {
-    logoutUser: (user) => { dispatch(logoutUser(user)) }
-  }
+  // TODO: Provide logout to user
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavigationBar));

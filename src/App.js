@@ -10,19 +10,13 @@ import Profile from './pages/profile/ProfileContainer';
 import Search from './pages/search/SearchContainer';
 import Network from './pages/network/NetworkContainer';
 
-import {loginUser} from './redux/actions';
-
 import './App.css';
 
 import NavigationBar from './components/NavigationBar/NavigationBarContainer';
 
 class App extends Component {
   componentDidMount() {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    if (email && password) {
-      this.props.loginUser(email, password);
-    }
+    // TODO: if session exists (session storage), then login user
   }
   render() {
     return (
@@ -44,9 +38,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginUser: (email, password) => {
-    dispatch(loginUser(email, password));
-  }
+  // TODO: Provide Login action
 })
 
 export default process.env.NODE_ENV === "development" ? 

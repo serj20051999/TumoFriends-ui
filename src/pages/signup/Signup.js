@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 
+/**
+ * Sign up page EXTRA CREDIT - not required
+ */
 class Signup extends Component {
   constructor(props) {
     super(props);

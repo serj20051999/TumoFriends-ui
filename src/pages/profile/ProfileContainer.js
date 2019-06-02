@@ -1,21 +1,13 @@
 import { connect } from 'react-redux'
 
 import Profile from './Profile';
-import { updateUser } from '../../redux/actions';
 
 const mapStateToProps = state => {
-  return {
-    user: state.user.data,
-    userError: state.user.error
-  }
+  // TODO: pass logged in user data
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    updateUser: ({email, password, firstName, lastName, learningTargets, location}) => {
-      dispatch(updateUser(email, password, firstName, lastName, learningTargets, location));
-    }
-  }
+  // TODO: EXTRA WORK - pass update user action 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

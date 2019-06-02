@@ -1,16 +1,16 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 
-import Socket from '../../socket';
+// TODO use --> import Socket from '../../socket';
 
+/**
+ * Component use for canvas drawing with peer
+ */
 class Drawing extends React.Component {
   constructor(props) {
-    super(props);
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.endPaintEvent = this.endPaintEvent.bind(this);
+    // TODO set handlers for mouse movements
   }
 
+  // TODO set fields for isPainting boolean, stroke colors, line array, previous position
   isPainting = false;
   // Different stroke styles to be used for user and guest
   userStrokeStyle = 'black';
@@ -19,88 +19,30 @@ class Drawing extends React.Component {
   prevPos = { offsetX: 0, offsetY: 0 };
 
   onMouseDown({ nativeEvent }) {
-    const { offsetX, offsetY } = nativeEvent;
-    this.isPainting = true;
-    this.prevPos = { offsetX, offsetY };
+    // TODO: record mouse positions
   }
 
   onMouseMove({ nativeEvent }) {
-    if (this.isPainting) {
-      const { offsetX, offsetY } = nativeEvent;
-      const offSetData = { offsetX, offsetY };
-      // Set the start and stop position of the paint event.
-      const positionData = {
-        start: { ...this.prevPos },
-        stop: { ...offSetData },
-      };
-      // Add the position to the line array
-      this.line = this.line.concat(positionData);
-      this.paint(this.prevPos, offSetData, this.userStrokeStyle);
-    }
+    // TODO: paint based on mouse positions
   }
   endPaintEvent() {
-    if (this.isPainting) {
-      this.isPainting = false;
-      this.sendPaintData();
-    }
+    // TODO: end paint boolean and send data to peer
   }
   paint(prevPos, currPos, strokeStyle) {
-    const { offsetX, offsetY } = currPos;
-    const { offsetX: x, offsetY: y } = prevPos;
-
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = strokeStyle;
-    // Move the the prevPosition of the mouse
-    this.ctx.moveTo(x, y);
-    // Draw a line to the current position of the mouse
-    this.ctx.lineTo(offsetX, offsetY);
-    // Visualize the line using the strokeStyle
-    this.ctx.stroke();
-    this.prevPos = { offsetX, offsetY };
+    // TODO: Draw on canvas
   }
   sendPaintData() {
-    Socket.list.emit('drawing-message', this.props.withUser, this.props.currentUser, this.line);
+    // TODO: send data to socket
   }
   clear() {
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height); // Clears the canvas
-    this.line = [];
+    // TODO: clean canvas
   }
   componentDidMount() {
-    // Here we set up the properties of the canvas element. 
-    // this.canvas.width = 1000;
-    // this.canvas.height = 800;
-    this.ctx = this.canvas.getContext('2d');
-    this.ctx.lineJoin = 'round';
-    this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = 5;
-
-    this.canvas.width = this.container.parentElement.parentElement.offsetWidth; // grab the tab container width - bug
-    window.addEventListener('resize', () => {
-      this.canvas.width = this.container.offsetWidth;
-    });
-    Socket.connect('list', (list) => {
-      list.on('drawing-message', (fromUser, line) => {
-        if (Array.isArray(line) && line.length === 0) {
-          this.clear();
-        }
-        line.forEach((position) => {
-          this.paint(position.start, position.stop, this.guestStrokeStyle);
-        });
-      })
-    });
+    // TODO: set canvas context configuration, resize listener on canvas width, socket connect/listen --> paint
   }
   render() {
     return (
-      <div ref={el => this.container = el} style={{height: "500px", border: "1px solid black"}}>
-        <Button variant="info" onClick={() => {this.clear(); this.sendPaintData()}}>Clear</Button>
-        <canvas 
-          ref={(ref) => (this.canvas = ref)}
-          onMouseDown={this.onMouseDown}
-          onMouseLeave={this.endPaintEvent}
-          onMouseUp={this.endPaintEvent}
-          onMouseMove={this.onMouseMove}
-          id="canvas" width="100px" height="500px"></canvas>
-      </div>
+      <div>TODO: drawing canvas with peer</div>
     )
   }
 }

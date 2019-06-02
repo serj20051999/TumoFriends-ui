@@ -1,17 +1,13 @@
 import { connect } from 'react-redux'
 
 import Search from './Search';
-import { startChat } from '../../redux/actions';
 
 const mapStateToProps = state => ({
-    currentUser: state.user.data,
-    userError: state.user.error
+    // TODO: pass logged in user data
 })
 
 const mapDispatchToProps = dispatch => ({
-  startChat: (withUser) => {
-    dispatch(startChat(withUser));
-  }
+  // TODO: action to start chat
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
