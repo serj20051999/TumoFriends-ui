@@ -22,7 +22,7 @@ export default class Login extends Component {
     // }
     return (
       <Container className="mt-3">
-        <div>TODO: create login form</div>
+        <div>TODO: create</div>
       </Container>
     )
   }
