@@ -1,0 +1,16 @@
+.heading{
+    color: #6c757d;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+.form{
+    margin-top: 48px;
+}
+.text {
+    text-decoration: none;
+    color: #f8f9fa;
+    font-weight: 700;
+    background-color: #007bff;
+    font-size: 1.25rem;
+}
