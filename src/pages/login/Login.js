@@ -14,22 +14,15 @@ export default class Login extends Component {
       email: '',
       password: ''
     }
-    this.handleChange = this.handleChange.bind(this);
+    
  this.handleSubmit = this.handleSubmit.bind(this);
   }
- 
-  handleChange(event) {
-    this.setState({
-      [event.target.type]: event.target.value
-    }); 
-  }
- 
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.email);
+  handleSubmit = event => {
     event.preventDefault();
+    this.props.loginUser(this.state)
   }
  
+  
 
   render() {
   //   // TODO: use to redirect if user not logged in
@@ -48,15 +41,15 @@ export default class Login extends Component {
       <Form onSubmit={this.handleSubmit } className="form" > 
   <Form.Group controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" onChange={this.handleChange} />
-    <Form.Text className="text-muted">
+    <Form.Control onChange={e => this.setState({email: e.target.value})}  type="email" placeholder="Enter email"  />
+    <Form.Text value={() => this.state.email} className="text-muted">
     Login with your TUMO username and password.
     </Form.Text>
   </Form.Group>
 
   <Form.Group controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" onChange={this.handleChange} />
+    <Form.Control type="password" placeholder="Password" onChange={e => this.setState({password: e.target.value})} />
   </Form.Group>
   <Button variant="primary" type="submit">
     Submit
