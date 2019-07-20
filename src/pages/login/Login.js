@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// TODO: use --> import {Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {Form, Button, Container} from 'react-bootstrap';
 import './Login.css';
 /**
@@ -25,14 +25,14 @@ export default class Login extends Component {
   
 
   render() {
-  //   // TODO: use to redirect if user not logged in
-  //   // if (this.props.user) {
-  //   //   return (
-  //   //     <Redirect to={{
-  //   //       pathname: '/profile',
-  //   //     }} />
-  //   //   )
-  //   // }
+  
+    if (this.props.user) {
+      return (
+        <Redirect to={{
+          pathname: '/profile',
+        }} />
+      )
+    }
    
     
     return (

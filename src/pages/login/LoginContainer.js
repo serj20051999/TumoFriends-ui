@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Login from './Login';
 import {loginUser} from './../../redux/actions';
 const mapStateToProps = state => ({
-  user:state.user
+  user:state.user.data
 });
 
 const mapDispatchToProps = dispatch => {

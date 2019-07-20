@@ -41,12 +41,13 @@ export default ({user, location}) => (
         </Nav>
       </Navbar.Collapse>
       {
-        /**
-         * TODO: When user logged in
-         * 1. Text Hello [user first name]!
-         * 2. Button to logout user
-         * 3. If connected to peer a button to chat
-         */
+        user.data ? ( 
+          <span>
+            <span className="ml-auto">
+        <span className='text-white'>Hello {user.data.firstName}</span>
+        </span>
+        </span>
+        ):null
       }
     </Navbar>
   </div>
