@@ -33,6 +33,8 @@ export const loginUser = (email, password) => {
   return dispatch => {
     axios.get(`${apiHost}/students/${email}`,{auth:{username:email,password:password}})
     .then(response => {
+      sessionStorage.setItem('email',email);
+      sessionStorage.setItem('password',password);
       console.log(response);
       dispatch({
       type:"LOGIN_USER",
