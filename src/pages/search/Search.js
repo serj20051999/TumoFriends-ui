@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // TODO: use --> import Socket from '../../socket';
-import {Container} from 'react-bootstrap';
+import {Form, Button, Container} from 'react-bootstrap';
 
 /**
  * React component to render search page
@@ -31,7 +31,10 @@ class Search extends React.Component {
   render() {
     return (
       <Container className="mt-5">
-        <div>TODO: adding page to search for users based on single text field</div>
+       <Form className="form-inline">
+    <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+    <Button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</Button>
+  </Form>
       </Container>
     )
   }
