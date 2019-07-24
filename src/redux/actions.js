@@ -31,41 +31,34 @@ export const createUser = (email, password, firstName, lastName, learningTargets
 
 export const loginUser = (email, password) => {
   return dispatch => {
-    axios.get(`${apiHost}/students/${email}`,{auth:{username:email,password:password}})
+    axios.get(`${apiHost}/students/${email}`, { auth: {username: email, password: password}})
     .then(response => {
-      sessionStorage.setItem('email',email);
-      sessionStorage.setItem('password',password);
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
       Socket.connect(users => {
         users.emit('login', {
-          email,
+          email, 
           password
         });
-     
-      
-      dispatch({
-      type:"LOGIN_USER",
-      payload: response.data
+        dispatch({
+          type: 'LOGIN_USER',
+          payload: response.data
+        });
+        // When someone initiates chat send action
+        users.on('start-chat', fromUser => {
+          console.log('start-chat', fromUser);
+          startChat(fromUser)(dispatch);
+          dispatch(imReceiver());
+        });
       })
-    });
     })
     .catch(err => {
-
       dispatch({
         type: 'LOGIN_USER_ERROR',
         payload: getErrorMessage(err)
       })
     })
-    /**
-    /**
-     * TODO: Login Action
-     * 1. Call Login API
-     * 2. Set Session Storage
-     * 3. Connect to Socket and emit login
-     * 4. Dispatch action LOGIN_USER
-     * 5. Listen on Socket start-chat to dispatch start-chat
-     */
-    }
-  };
+  }}
 
 export const updateUser = () => {
   return dispatch => {
