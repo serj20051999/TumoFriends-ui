@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Nav, Navbar,Button} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import tumoLogoArm from './tumo-logo-arm.png';
+import tumoLogoEng from './tumo-logo-eng.png';
 import ProfileIcon from './ProfileIcon';
 import NetworkIcon from './NetworkIcon';
 import SearchIcon from './SearchIcon';
@@ -14,7 +14,7 @@ export default ({user, location,logoutUser,withUser}) => (
   <div className="global-nav">
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <LinkContainer to="/">
-        <Navbar.Brand><img alt="tumo" className="tumo-logo" src={tumoLogoArm} /></Navbar.Brand>
+        <Navbar.Brand><img alt="tumo" className="tumo-logo" src={tumoLogoEng} /></Navbar.Brand>
       </LinkContainer>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

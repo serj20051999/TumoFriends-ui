@@ -1,7 +1,7 @@
 import React from 'react';
-
 import LioWebRTC from 'liowebrtc';
-import {Button,Badge} from 'react-bootstrap';
+
+import { Badge, Button } from 'react-bootstrap';
 import endCallIcon from './end-call-icon.png';
 import callIcon from './phone-call.png';
 
@@ -19,7 +19,6 @@ class VideoChat extends React.Component {
     this.videoRef = React.createRef();
     this.remoteVideos = {};
   }
-
   componentDidMount() {
     this.webrtc = new LioWebRTC({
       // The url for your signaling server. Use your own in production!
@@ -29,45 +28,44 @@ class VideoChat extends React.Component {
       // Immediately request camera access
       autoRequestMedia: false,
       // Optional: nickname
-      nick: this.props.currentUser.firstName,
+      nick: this.props.user.firstName,
       debug: true,
       localVideo: {
-        mirror: false,
+        mirror: true,
         muted: true
       },
       stunservers: ['stun.l.google.com:19302', 'stun1.l.google.com:19302', 'stun2.l.google.com:19302'],
       turnservers: ['ec2-54-214-226-181.us-west-2.compute.amazonaws.com']
     });
-
     this.webrtc.on('peerStreamAdded', this.addVideo);
     this.webrtc.on('removedPeer', this.removeVideo);
-    this.webrtc.on('ready', this.readyToJoin);
+    // this.webrtc.on('ready', this.readyToJoin);
     this.webrtc.on('iceFailed', this.handleConnectionError);
     this.webrtc.on('connectivityError', this.handleConnectionError);
   }
-
-    addVideo = (stream, peer) => {
+  componentWillUnmount() {
+    this.disconnect();
+  }
+  disconnect = () => {
+    this.webrtc.quit();
+  }
+  addVideo = (stream, peer) => {
     this.setState({ peers: [...this.state.peers, peer] }, () => {
-      this.webrtc.attachStream(stream, this.remoteVideos[peer.id], { mirror: false });
+      this.webrtc.attachStream(stream, this.remoteVideos[peer.id], { mirror: true });
       this.setState({
         inCall: true,
       })
     });
   }
-
   removeVideo = (peer) => {
     this.setState({
       peers: this.state.peers.filter(p => !p.closed)
     });
   }
-
   handleConnectionError = (peer) => {
     const pc = peer.pc;
     console.log('had local relay candidate', pc.hadLocalRelayCandidate);
     console.log('had remote relay candidate', pc.hadRemoteRelayCandidate);
-  }
-  componentWillUnmount() {
-    this.webrtc.quit();
   }
   startCall() {
     this.webrtc.startLocalVideo();
@@ -80,20 +78,18 @@ class VideoChat extends React.Component {
     })
   }
   readyToJoin = () => {
-    
+    // Starts the process of joining a room.
     this.webrtc.joinRoom(this.state.roomID, (err, desc) => {
     });
   }
-
-  
   generateRemotes = () => this.state.peers.map((p) => (
     <div key={p.id}>
       <div
-        id={ `${this.webrtc.getContainerId(p)}`}>
+        id={/* The video container needs a special id */ `${this.webrtc.getContainerId(p)}`}>
         <video
           controls
-         
-         
+          autoPlay
+          // Important: The video element needs both an id and ref
           id={this.webrtc.getDomId(p)}
           ref={(v) => this.remoteVideos[p.id] = v}
           style={{width: "100%", transform: "none"}}
@@ -123,5 +119,4 @@ class VideoChat extends React.Component {
   }
 }
 
-export default VideoChat; 
-  
+export default VideoChat;
